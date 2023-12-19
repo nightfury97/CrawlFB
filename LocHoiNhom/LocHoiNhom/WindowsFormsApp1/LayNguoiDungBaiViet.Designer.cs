@@ -36,6 +36,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.numberRow = new System.Windows.Forms.NumericUpDown();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.lbDuongDan = new System.Windows.Forms.Label();
+            this.lbNguoiDung = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numberRow)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +59,7 @@
             this.tbLinkTarget.Name = "tbLinkTarget";
             this.tbLinkTarget.Size = new System.Drawing.Size(246, 22);
             this.tbLinkTarget.TabIndex = 41;
-            this.tbLinkTarget.Text = "https://web.facebook.com/ho.lytien.1";
+            this.tbLinkTarget.Text = "https://www.facebook.com/ho.lytien.1";
             // 
             // button1
             // 
@@ -115,16 +120,72 @@
             this.numberRow.Size = new System.Drawing.Size(120, 22);
             this.numberRow.TabIndex = 47;
             this.numberRow.Value = new decimal(new int[] {
-            6,
+            3,
             0,
             0,
             0});
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(23, 217);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(294, 32);
+            this.button4.TabIndex = 49;
+            this.button4.Text = "4. Chọn file bài đăng cần phân tích";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(23, 264);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(294, 32);
+            this.button5.TabIndex = 51;
+            this.button5.Text = "5. Phân tích bài đăng: lấy UID người bình luận";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(23, 310);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(294, 32);
+            this.button6.TabIndex = 52;
+            this.button6.Text = "6. Xác định thông tin người dùng";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // lbDuongDan
+            // 
+            this.lbDuongDan.AutoSize = true;
+            this.lbDuongDan.Location = new System.Drawing.Point(323, 233);
+            this.lbDuongDan.Name = "lbDuongDan";
+            this.lbDuongDan.Size = new System.Drawing.Size(19, 16);
+            this.lbDuongDan.TabIndex = 50;
+            this.lbDuongDan.Text = "    ";
+            // 
+            // lbNguoiDung
+            // 
+            this.lbNguoiDung.AutoSize = true;
+            this.lbNguoiDung.Location = new System.Drawing.Point(323, 272);
+            this.lbNguoiDung.Name = "lbNguoiDung";
+            this.lbNguoiDung.Size = new System.Drawing.Size(19, 16);
+            this.lbNguoiDung.TabIndex = 53;
+            this.lbNguoiDung.Text = "    ";
             // 
             // LayNguoiDungBaiViet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lbNguoiDung);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.lbDuongDan);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numberRow);
             this.Controls.Add(this.button3);
@@ -152,5 +213,10 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numberRow;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label lbDuongDan;
+        private System.Windows.Forms.Label lbNguoiDung;
     }
 }

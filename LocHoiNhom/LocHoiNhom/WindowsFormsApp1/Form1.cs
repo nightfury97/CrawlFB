@@ -130,6 +130,9 @@ namespace WindowsFormsApp1
             ExcelFile workbook = ExcelFile.Load(lbDuongDan.Text);
             ExcelWorksheet sheet = workbook.Worksheets[0];
 
+
+            ExcelFile Temp = ExcelFile.Load("D:/LocHoiNhom/MauBaoCaoHoiNhom.xlsx");
+            ExcelWorksheet TempSheet = workbook.Worksheets[0];
             int count = (int)numberRow.Value;
             for (int i = 1; i < count; i++)
             {
