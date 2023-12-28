@@ -18,6 +18,10 @@ using OpenQA.Selenium.Firefox;
 using GemBox.Spreadsheet;
 using OpenQA.Selenium.Interactions;
 using Org.BouncyCastle.Asn1.X509;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace TaiAnhNettruyen
 {
@@ -30,9 +34,10 @@ namespace TaiAnhNettruyen
         IWebDriver driver = new FirefoxDriver();
         string TenFile = "";
         string TenFile2 = "";
+        string rootPath = "";
         private void LayNguoiDungBaiViet_Load(object sender, EventArgs e)
         {
-
+            rootPath = Application.StartupPath;
         }
         public int Sleep()
         {
@@ -71,15 +76,7 @@ namespace TaiAnhNettruyen
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            driver.Navigate().GoToUrl("https://www.facebook.com/");
-            var email = driver.FindElement(By.XPath("//*[@id=\"email\"]"));
-            var pass = driver.FindElement(By.XPath("//*[@id=\"pass\"]"));
-            Sleep();
-            email.SendKeys("0774584921");
-            pass.SendKeys("TrieuVy123");
-            pass.SendKeys(OpenQA.Selenium.Keys.Enter);
-
-
+            driver.Navigate().GoToUrl("https://www.facebook.com/");           
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -141,7 +138,7 @@ namespace TaiAnhNettruyen
         {
             SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
 
-            ExcelFile workbook = ExcelFile.Load("D:/Git/CrawlFB/LocHoiNhom/MauDanhSachBaiDang.xlsx");
+            ExcelFile workbook = ExcelFile.Load(rootPath+"/MauDanhSachBaiDang.xlsx");
             ExcelWorksheet sheet = workbook.Worksheets[0];
             int count = (int)numberRow.Value;
             for (int x = 1; x < count / 3; x++)
@@ -217,7 +214,7 @@ namespace TaiAnhNettruyen
                 //sheet.Cells["E" + (i + 4).ToString()].Value = SoThanhVien.Split('·')[1].Trim();
                 //sheet.Cells["F" + (i + 4).ToString()].Value = SoThanhVien;
             }
-            TenFile = "D:/Git/CrawlFB/LocHoiNhom/BaoCaoATam/" + TenDoiTuong + DateTime.Now.Ticks.ToString() + ".xlsx";
+            TenFile = rootPath + "/BaoCaoATam/" + TenDoiTuong + DateTime.Now.Ticks.ToString() + ".xlsx";
             workbook.Save(TenFile);
             lbThongBao.Text = "Đã lưu danh sách bài đăng tại " + TenFile;
             lbDuongDan.Text = TenFile;
@@ -225,20 +222,21 @@ namespace TaiAnhNettruyen
 
         private void button4_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "D:\\Git\\CrawlFB\\LocHoiNhom\\BaoCaoATam/";
-            openFileDialog1.Filter = "Excel File (*.xls, *.xlsx)|*.xls;*.xlsx";
-            openFileDialog1.FilterIndex = 0;
-            openFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.InitialDirectory = "D:\\Git\\CrawlFB\\LocHoiNhom\\BaoCaoATam/";
+            //openFileDialog1.Filter = "Excel File (*.xls, *.xlsx)|*.xls;*.xlsx";
+            //openFileDialog1.FilterIndex = 0;
+            //openFileDialog1.RestoreDirectory = true;
 
-            if (openFileDialog1.ShowDialog() != DialogResult.OK)
-            {
+            //if (openFileDialog1.ShowDialog() != DialogResult.OK)
+            //{
 
-                return;
-            }
+            //    return;
+            //}
 
-            lbDuongDan.Text = openFileDialog1.FileName;
+            //lbDuongDan.Text = openFileDialog1.FileName;
+            System.Diagnostics.Process.Start(lbDuongDan.Text);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -247,7 +245,7 @@ namespace TaiAnhNettruyen
             ExcelFile workbook = ExcelFile.Load(lbDuongDan.Text);
             ExcelWorksheet sheet = workbook.Worksheets[0];
 
-            ExcelFile Temp = ExcelFile.Load("D:/Git/CrawlFB/LocHoiNhom/MauDanhSachBaiDang.xlsx");
+            ExcelFile Temp = ExcelFile.Load(rootPath + "/MauDanhSachBaiDang.xlsx");
             ExcelWorksheet TempSheet = Temp.Worksheets[0];
 
             int RowsCount = sheet.Rows.Count;
@@ -257,23 +255,33 @@ namespace TaiAnhNettruyen
             {
 
                 string PostLink = sheet.Cells["B" + (i + 4).ToString()].Value.ToString();
+                try
+                {
+
+                    driver.Navigate().GoToUrl(PostLink);
+                }
+                catch {
+                    continue;
+                }
                 //"https://www.facebook.com/ho.lytien.1/posts/pfbid0ruzjmnqmRKmcZfAcyyoSDtW5StQVhWSrzrCrPtNgwyCQY5Q6hsBNfPxBkKgUPJ8xl";
                 //if (PostLink == "") { continue; }
                 TempSheet.Cells["A" + (i + 4 + rowStep).ToString()].Value = i.ToString();
                 TempSheet.Cells["C" + (i + 4 + rowStep).ToString()].Value = sheet.Cells["D" + (i + 4).ToString()].Value.ToString();
                 TempSheet.Cells["B" + (i + 4 + rowStep++).ToString()].Value = PostLink;
-
-                driver.Navigate().GoToUrl(PostLink);
+                
                 Sleep();
 
                 int y = 1;
                 int flag = 0;
+                int loop = 0;
                 while (flag != 2)
                 {
                     try
                     {
                         var SeeMore = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[8]/div/div/div[4]/div/div/div[2]/div[4]/div[1]/div[2]"));
                         SeeMore.Click();
+                        loop++;
+                        if(loop > 50) { break; }
                     }
                     catch
                     {
@@ -337,10 +345,10 @@ namespace TaiAnhNettruyen
                     Sleep();
                 }
             }
-            TenFile2 = "D:/Git/CrawlFB/LocHoiNhom/BaoCaoATam/" + "PHANTICH" + DateTime.Now.Ticks.ToString() + ".xlsx";
+            TenFile2 = rootPath + "/BaoCaoATam/" + "PHANTICH" + DateTime.Now.Ticks.ToString() + ".xlsx";
             Temp.Save(TenFile2);
             lbNguoiDung.Text = TenFile2;
-            lbThongBao.Text = "Đã lưu danh sách bài đăng tại " + TenFile2;
+            lbThongBao.Text = "Xong Bước 5";
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -362,20 +370,45 @@ namespace TaiAnhNettruyen
                     if (flag != "")
                     { continue; }
                     string UserLink = (sheet.Cells["B" + (i + 4).ToString()].Value != null) ? sheet.Cells["B" + (i + 4).ToString()].Value.ToString() : "";
-                    if (UserLink == "")
-                    { continue; }
-                    driver.Navigate().GoToUrl(UserLink);
-                    var FaceInfo = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div[2]/div/ul"));
-                    string UserInfo = FaceInfo.Text;
+                    //if (UserLink == "")
+                    //{ continue; }
+                    //driver.Navigate().GoToUrl(UserLink);
+                    try
+                    {
+
+                        driver.Navigate().GoToUrl(UserLink);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                    Sleep();
                     var FaceName = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div[1]/div[2]/div/div/div/div[3]/div/div/div[1]/div/div/span/h1"));
                     string Name = FaceName.Text;
+                    sheet.Cells["D" + (i + 4).ToString()].Value = Name;
+                }
+                catch { }
+                try {
+                    var FaceInfo = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]"));
+                    string UserInfo = FaceInfo.Text;
+
                     if (UserInfo.ToUpper().Contains("ĐÀ NẴNG"))
                     {
                         sheet.Cells["A" + (i + 4).ToString()].Value = "Có yếu tố Đà Nẵng";
                         sheet.Rows[(i + 4).ToString()].Style.FillPattern.SetSolid(Color.Orange);
                     }
+                    if (UserInfo.ToUpper().Contains("SỐNG TẠI ĐÀ NẴNG"))
+                    {
+                        sheet.Cells["F" + (i + 4).ToString()].Value = "Có";
+                        sheet.Rows[(i + 4).ToString()].Style.FillPattern.SetSolid(Color.Orange);
+                    }
+                    if (UserInfo.ToUpper().Contains("LÀM VIỆC TẠI ĐÀ NẴNG"))
+                    {
+                        sheet.Cells["F" + (i + 4).ToString()].Value = "Có";
+                        sheet.Rows[(i + 4).ToString()].Style.FillPattern.SetSolid(Color.Orange);
+                    }
                     sheet.Cells["E" + (i + 4).ToString()].Value = UserInfo;
-                    sheet.Cells["D" + (i + 4).ToString()].Value = Name;
+                    
 
                     Sleep();
                 }
@@ -384,14 +417,123 @@ namespace TaiAnhNettruyen
             }
 
 
-            TenFile2 = "D:/Git/CrawlFB/LocHoiNhom/BaoCaoATam/" + "NGUOIDUNG" + DateTime.Now.Ticks.ToString() + ".xlsx";
+            TenFile2 = rootPath + "/BaoCaoATam/" + "NGUOIDUNG" + DateTime.Now.Ticks.ToString() + ".xlsx";
             workbook.Save(TenFile2);
-            lbNguoiDung.Text = TenFile2;
-            lbThongBao.Text = "Đã lưu danh sách bài đăng tại " + TenFile2;
+            lbKetQua.Text = TenFile2;
+            lbThongBao.Text = "Xong Bước 6";
             //int RowsCount = sheet.Rows.Count;
             //for (int i = 1; i < RowsCount - 4; i++)
             //{
             //}
+        }
+
+        private void lbDuongDan_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(lbDuongDan.Text);
+        }
+
+        private void lbNguoiDung_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(lbNguoiDung.Text);
+        }
+
+        private void lbKetQua_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(lbKetQua.Text);
+        }
+        public void WriteCookiesToDisk(string file, string cookieJar)
+        {
+            using (Stream stream = File.Create(file))
+            {
+                try
+                {
+                    Console.Out.Write("Writing cookies to disk... ");
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, cookieJar);
+                    Console.Out.WriteLine("Done.");
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine("Problem writing cookies to disk: " + e.GetType());
+                }
+            }
+        }
+
+        public static CookieContainer ReadCookiesFromDisk(string file)
+        {
+
+            try
+            {
+                using (Stream stream = File.Open(file, FileMode.Open))
+                {
+                    Console.Out.Write("Reading cookies from disk... ");
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    Console.Out.WriteLine("Done.");
+                    return (CookieContainer)formatter.Deserialize(stream);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Out.WriteLine("Problem reading cookies from disk: " + e.GetType());
+                return new CookieContainer();
+            }
+        }
+        public static string GetCookiesAsString(IWebDriver driver)
+        {
+            var cookies = driver.Manage().Cookies.AllCookies;
+            return System.Text.Json.JsonSerializer.Serialize(cookies, new JsonSerializerOptions { WriteIndented = true });
+        }
+
+        public void SetCookies(IWebDriver driver, string json)
+        {
+            var cookies = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(json);
+            foreach (var c in cookies)
+            {
+                string name = c.Name;
+                string value = c.Value;
+                string domain = c.Domain;
+                string path = c.Path;
+                DateTime? expiry = c.Expiry;
+                bool secure = c.Secure;
+                bool isHttpOnly = c.IsHttpOnly;
+                string sameSite = c.SameSite;
+
+                var cookie = new OpenQA.Selenium.Cookie(name, value, domain, path, expiry, secure, isHttpOnly, sameSite);
+
+                driver.Manage().Cookies.AddCookie(cookie);
+            }
+        }
+        private void SaveCookie_Click(object sender, EventArgs e)
+        {
+            string cookies = GetCookiesAsString(driver);
+            string fileCookies = rootPath +"/Cookies/"+ DateTime.Now.Ticks.ToString() + ".txt";
+            System.IO.File.WriteAllText(fileCookies, cookies);
+            //WriteCookiesToDisk(fileCookies, cookies);
+            lbThongBao.Text = "save cookies";
+        }
+
+        private void LoadCookie_Click(object sender, EventArgs e)
+        {
+            
+           
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = rootPath + "/Cookies/";
+            openFileDialog1.Filter = "Text File (*.txt)|*.txt";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() != DialogResult.OK)
+            {
+
+                return;
+            }
+            var jsonText = File.ReadAllText(openFileDialog1.FileName);
+            driver.Navigate().GoToUrl("https://www.facebook.com/");
+            SetCookies(driver, jsonText);
+            lbThongBao.Text = "load cookies";
+
+            driver.Navigate().GoToUrl("https://www.facebook.com/");
         }
     }
 }

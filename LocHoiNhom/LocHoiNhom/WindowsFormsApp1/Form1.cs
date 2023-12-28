@@ -79,7 +79,7 @@ namespace WindowsFormsApp1
         {
             SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
 
-            ExcelFile workbook = ExcelFile.Load("D:/LocHoiNhom/MauBaoCaoHoiNhom.xlsx");
+            ExcelFile workbook = ExcelFile.Load("D:\\Git\\CrawlFB/LocHoiNhom/MauBaoCaoHoiNhom.xlsx");
             ExcelWorksheet sheet = workbook.Worksheets[0];
             int count = (int)numberRow.Value;
             for(int x = 1; x < count/6; x++)
@@ -91,11 +91,11 @@ namespace WindowsFormsApp1
             sheet.Cells["A2"].Value = tbTuKhoa.Text;
             for (int i = 1; i < count; i++)
             {
-                var GroupName = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div[2]/div/div/div/div/div/div[" + i.ToString() + "]/div/div/div/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[1]/span/div/a"));
+                var GroupName = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div[2]/div/div/div/div/div/div[" + i.ToString() + "]/div/div/div/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[1]/span/div/a"));
                 string TenHoiNhom = GroupName.Text;
                 string DuongDan = GroupName.GetAttribute("href");
 
-                var Members = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div[2]/div/div/div/div/div/div[" + i.ToString() + "]/div/div/div/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[2]/span/span"));
+                var Members = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div[2]/div/div/div/div/div/div[" + i.ToString() + "]/div/div/div/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[2]/span/span"));
                 string SoThanhVien = Members.Text;
                 sheet.Cells["A" + (i + 4).ToString()].Value = i;
                 sheet.Cells["B" + (i + 4).ToString()].Value = TenHoiNhom;
@@ -103,7 +103,7 @@ namespace WindowsFormsApp1
                 sheet.Cells["E" + (i + 4).ToString()].Value = SoThanhVien.Split('·')[1].Trim();
                 sheet.Cells["F" + (i + 4).ToString()].Value = SoThanhVien;            
             }           
-            workbook.Save("D:/LocHoiNhom/BaoCao/"+ tbTuKhoa.Text +DateTime.Now.Ticks.ToString() + ".xlsx");
+            workbook.Save("D:\\Git\\CrawlFB/LocHoiNhom/BaoCao/" + tbTuKhoa.Text +DateTime.Now.Ticks.ToString() + ".xlsx");
             lbThongBao.Text = "Xong thông tin hội nhóm";
         }
 
@@ -111,7 +111,7 @@ namespace WindowsFormsApp1
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "D:/LocHoiNhom/BaoCao/";
+            openFileDialog1.InitialDirectory = "D:/Git/CrawlFB/LocHoiNhom/BaoCao/";
             openFileDialog1.Filter = "Excel File (*.xls, *.xlsx)|*.xls;*.xlsx";
             openFileDialog1.FilterIndex = 0;
             openFileDialog1.RestoreDirectory = true;
@@ -131,7 +131,7 @@ namespace WindowsFormsApp1
             ExcelWorksheet sheet = workbook.Worksheets[0];
 
 
-            ExcelFile Temp = ExcelFile.Load("D:/LocHoiNhom/MauBaoCaoHoiNhom.xlsx");
+            ExcelFile Temp = ExcelFile.Load("D:\\Git\\CrawlFB/LocHoiNhom/MauBaoCaoHoiNhom.xlsx");
             ExcelWorksheet TempSheet = workbook.Worksheets[0];
             int count = (int)numberRow.Value;
             for (int i = 1; i < count; i++)
@@ -143,14 +143,14 @@ namespace WindowsFormsApp1
                     {
                     string GroupUrl = sheet.Cells["C" + (i + 4).ToString()].Value.ToString();
                     driver.Navigate().GoToUrl(GroupUrl + "members/admins");
-                    var AdminCount = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div/div/h2/span/span/span/strong"));
+                    var AdminCount = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div/div/div/h2/span/span/span/strong"));
                     string Count = AdminCount.Text.Split('·')[1].Trim();
                     int x = Int32.Parse(Count);
                     string data = "";
                     for(int y = 1; y <= x; y++)
                     {
                         
-                            var AdminGroup = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div/div/div/div/div/div/div[2]/div/div/div[2]/div/div[" + y.ToString() + "]/div/div/div[2]/div[1]/div/div/div[1]/span/span/span/a"));
+                            var AdminGroup = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[2]/div/div/div[4]/div/div/div/div/div/div/div/div[2]/div/div/div[2]/div/div[" + y.ToString() + "]/div/div/div[2]/div[1]/div/div/div[1]/span/span[1]/span/a"));
                             string TenAdmin = AdminGroup.Text;
                             string DuongDan = AdminGroup.GetAttribute("href");
                             string uid = DuongDan.Split('/')[6];
@@ -165,7 +165,7 @@ namespace WindowsFormsApp1
                     catch { }
                 }    
             }
-            workbook.Save("D:/LocHoiNhom/BaoCao/Admin_" + tbTuKhoa.Text + DateTime.Now.Ticks.ToString() + ".xlsx");
+            workbook.Save("D:\\Git\\CrawlFB/LocHoiNhom/BaoCao/Admin_" + tbTuKhoa.Text + DateTime.Now.Ticks.ToString() + ".xlsx");
             lbThongBao.Text = "Xong thông tin admin hội nhóm";
         }
     }

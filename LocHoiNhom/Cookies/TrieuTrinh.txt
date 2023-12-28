@@ -1,0 +1,82 @@
+[
+  {
+    "Name": "datr",
+    "Value": "YJaCZTwseMX0RmhwZDMr9HWB",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": true,
+    "SameSite": "None",
+    "Expiry": "2025-01-23T14:23:20+07:00"
+  },
+  {
+    "Name": "sb",
+    "Value": "YJaCZROILebENzhh2p0QKL0M",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": true,
+    "SameSite": "None",
+    "Expiry": "2025-01-23T14:23:20+07:00"
+  },
+  {
+    "Name": "c_user",
+    "Value": "100081065595552",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": false,
+    "SameSite": "None",
+    "Expiry": "2024-12-19T14:23:20+07:00"
+  },
+  {
+    "Name": "xs",
+    "Value": "31%3A3ECvLDdtha1AcA%3A2%3A1703056994%3A-1%3A-1",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": true,
+    "SameSite": "None",
+    "Expiry": "2024-12-19T14:23:20+07:00"
+  },
+  {
+    "Name": "fr",
+    "Value": "0SpRBkEZEXMpnU5Es.AWVqfXtaIzz01oUN1ZPIXLh0b2s.BlgpZg.WI.AAA.0.0.BlgpZm.AWUiyxXudHc",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": true,
+    "SameSite": "None",
+    "Expiry": "2024-03-19T14:23:20+07:00"
+  },
+  {
+    "Name": "dpr",
+    "Value": "1.25",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": false,
+    "SameSite": "None",
+    "Expiry": "2023-12-27T14:23:22+07:00"
+  },
+  {
+    "Name": "wd",
+    "Value": "1536x739",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": false,
+    "SameSite": "Lax",
+    "Expiry": "2023-12-27T14:23:22+07:00"
+  },
+  {
+    "Name": "presence",
+    "Value": "C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1703057002922%2C%22v%22%3A1%7D",
+    "Domain": ".facebook.com",
+    "Path": "/",
+    "Secure": true,
+    "IsHttpOnly": false,
+    "SameSite": "None",
+    "Expiry": null
+  }
+]

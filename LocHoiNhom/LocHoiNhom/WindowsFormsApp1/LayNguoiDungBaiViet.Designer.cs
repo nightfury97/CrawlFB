@@ -39,8 +39,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.lbDuongDan = new System.Windows.Forms.Label();
-            this.lbNguoiDung = new System.Windows.Forms.Label();
+            this.lbDuongDan = new System.Windows.Forms.LinkLabel();
+            this.lbNguoiDung = new System.Windows.Forms.LinkLabel();
+            this.lbKetQua = new System.Windows.Forms.LinkLabel();
+            this.SaveCookie = new System.Windows.Forms.Button();
+            this.LoadCookie = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numberRow)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,7 +135,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(294, 32);
             this.button4.TabIndex = 49;
-            this.button4.Text = "4. Chọn file bài đăng cần phân tích";
+            this.button4.Text = "4. Xem File bài đăng cần phân tích";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -163,28 +166,68 @@
             this.lbDuongDan.AutoSize = true;
             this.lbDuongDan.Location = new System.Drawing.Point(323, 233);
             this.lbDuongDan.Name = "lbDuongDan";
-            this.lbDuongDan.Size = new System.Drawing.Size(19, 16);
-            this.lbDuongDan.TabIndex = 50;
-            this.lbDuongDan.Text = "    ";
+            this.lbDuongDan.Size = new System.Drawing.Size(68, 16);
+            this.lbDuongDan.TabIndex = 54;
+            this.lbDuongDan.TabStop = true;
+            this.lbDuongDan.Text = "linkLabel1";
+            this.lbDuongDan.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbDuongDan_LinkClicked);
             // 
             // lbNguoiDung
             // 
             this.lbNguoiDung.AutoSize = true;
             this.lbNguoiDung.Location = new System.Drawing.Point(323, 272);
             this.lbNguoiDung.Name = "lbNguoiDung";
-            this.lbNguoiDung.Size = new System.Drawing.Size(19, 16);
-            this.lbNguoiDung.TabIndex = 53;
-            this.lbNguoiDung.Text = "    ";
+            this.lbNguoiDung.Size = new System.Drawing.Size(68, 16);
+            this.lbNguoiDung.TabIndex = 54;
+            this.lbNguoiDung.TabStop = true;
+            this.lbNguoiDung.Text = "linkLabel1";
+            this.lbNguoiDung.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbNguoiDung_LinkClicked);
+            // 
+            // lbKetQua
+            // 
+            this.lbKetQua.AutoSize = true;
+            this.lbKetQua.Location = new System.Drawing.Point(323, 318);
+            this.lbKetQua.Name = "lbKetQua";
+            this.lbKetQua.Size = new System.Drawing.Size(68, 16);
+            this.lbKetQua.TabIndex = 54;
+            this.lbKetQua.TabStop = true;
+            this.lbKetQua.Text = "linkLabel1";
+            this.lbKetQua.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbKetQua_LinkClicked);
+            // 
+            // SaveCookie
+            // 
+            this.SaveCookie.Location = new System.Drawing.Point(323, 74);
+            this.SaveCookie.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SaveCookie.Name = "SaveCookie";
+            this.SaveCookie.Size = new System.Drawing.Size(162, 32);
+            this.SaveCookie.TabIndex = 55;
+            this.SaveCookie.Text = "1.1 Save cookie";
+            this.SaveCookie.UseVisualStyleBackColor = true;
+            this.SaveCookie.Click += new System.EventHandler(this.SaveCookie_Click);
+            // 
+            // LoadCookie
+            // 
+            this.LoadCookie.Location = new System.Drawing.Point(502, 74);
+            this.LoadCookie.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LoadCookie.Name = "LoadCookie";
+            this.LoadCookie.Size = new System.Drawing.Size(162, 32);
+            this.LoadCookie.TabIndex = 56;
+            this.LoadCookie.Text = "1.2 Load Cookie";
+            this.LoadCookie.UseVisualStyleBackColor = true;
+            this.LoadCookie.Click += new System.EventHandler(this.LoadCookie_Click);
             // 
             // LayNguoiDungBaiViet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1044, 406);
+            this.Controls.Add(this.LoadCookie);
+            this.Controls.Add(this.SaveCookie);
+            this.Controls.Add(this.lbKetQua);
             this.Controls.Add(this.lbNguoiDung);
+            this.Controls.Add(this.lbDuongDan);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.lbDuongDan);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numberRow);
@@ -216,7 +259,10 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Label lbDuongDan;
-        private System.Windows.Forms.Label lbNguoiDung;
+        private System.Windows.Forms.LinkLabel lbDuongDan;
+        private System.Windows.Forms.LinkLabel lbNguoiDung;
+        private System.Windows.Forms.LinkLabel lbKetQua;
+        private System.Windows.Forms.Button SaveCookie;
+        private System.Windows.Forms.Button LoadCookie;
     }
 }
